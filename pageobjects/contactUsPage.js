@@ -1,13 +1,57 @@
-const { test, expect } = require('@playwright/test');
+const { expect } = require('@playwright/test');
 class ContactUsPage {
-    constructor(page){
+    constructor(page) {
         this.page = page;
-        this.example = page.locator(' ');
-    
-    }
-    async goToContactUs(){
-        await this.page.goto('https://webdriveruniversity.com/Contact-Us/contactus.html')
-    }
+        this.firstNameField = page.locator('[name="first_name"]')
+        this.lastNameField = page.locator('[name="last_name"]')
+        this.emailField = page.locator('[name="email"]')
+        this.commentField = page.locator('[name="message"]')
+        this.resetButton = page.locator('[type="reset"]')
+        this.submitButton = page.locator('[type="submit"]')
+        this.contactReplay = page.locator('#contact_reply h1')
+        this.errorReplay = page.locator('body')
 
+    }
+    async goToContactUs() {
+        await this.page.goto('/Contact-Us/contactus.html')
+    }
+    async fillUpContactUsForm(firstName,lastName, email, comment) {
+        if (firstName !== null) await this.firstNameField.type(firstName)
+        if (lastName !== null) await this.lastNameField.type(lastName)
+        if (email !== null) await this.emailField.type(email)
+        if (comment !== null) await this.commentField.type(comment)
+    }
+    async resetEnteredData() {
+        await this.resetButton.click()
+        await expect(this.firstNameField).toBeEmpty()
+        await expect(this.lastNameField).toBeEmpty()
+        await expect(this.emailField).toBeEmpty()
+        await expect(this.commentField).toBeEmpty()
+    }
+    async submitContactUsForm() {
+        await this.submitButton.click()
+        
+    }
+    async messageFormSubmitedCorrect(){
+        await expect(this.contactReplay).toHaveText('Thank You for your Message!')
+    }
+    async errorMessageAllFieldsRequired(){
+        await expect(this.errorReplay).toContainText('Error: all fields are required')
+    }
+    async errorMessageInvalidEmail(){
+        await expect(this.errorReplay).toContainText('Error: Invalid email address')
+    }
+    async emailValidation(invalidEmail){
+        for (let i = 0; i <invalidEmail.length; ++i){
+            await this.firstNameField.type('Jane')
+            await this.lastNameField.type('Doe')
+            await this.emailField.type(invalidEmail[i])
+            await this.commentField.type('Comment')
+            await this.submitButton.click()
+            await expect(this.errorReplay).toHaveText('Error: Invalid email address')
+            await this.page.goBack()
+            await this.resetButton.click()
+        }
+    }
 }
-module.exports = {ContactUsPage};
+module.exports = { ContactUsPage };

@@ -9,7 +9,7 @@ module.exports = defineConfig({
   },
   reporter: 'html',
   use: {
-    baseURL: ' ',
+    baseURL: 'https://webdriveruniversity.com',
     browserName: 'chromium',
     headless : true,
     actionTimeout: 0,
