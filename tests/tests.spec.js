@@ -68,9 +68,19 @@ test.describe('Datapicker', () => {
         const datapickerPage = pageObjectsManager.getDatapickerPage()
         await datapickerPage.goToDatapicker()
       });
-      test.only('First test', async ({page}) => {
+      test('Default Date', async ({page}) => {
         const pageObjectsManager = new PageObjectsManager(page)
         const datapickerPage = pageObjectsManager.getDatapickerPage()
-        
+        await datapickerPage.chceckIfDefaultDateIsTodayDate()
+    });
+    test.only('Select Date number days from today', async ({page}) => {
+        const pageObjectsManager = new PageObjectsManager(page)
+        const datapickerPage = pageObjectsManager.getDatapickerPage()
+        await datapickerPage.selectDateFromToday(60)
+    });
+    test.only('Choose Date', async ({page}) => {
+        const pageObjectsManager = new PageObjectsManager(page)
+        const datapickerPage = pageObjectsManager.getDatapickerPage()
+        await datapickerPage.InsertDate('2033','February','15')
     });
 });
