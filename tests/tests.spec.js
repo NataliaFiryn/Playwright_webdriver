@@ -178,3 +178,15 @@ test.describe('Autocomplete Text Field', () => {
         await autocompleteTextFieldPage.submitFoodItem()
     });
 });
+test.describe('Ajax Loader Page', () => {
+    test.beforeEach(async ({ page }) => {
+        const pageObjectsManager = new PageObjectsManager(page)
+        const ajaxLoaderPage = pageObjectsManager.getAjaxLoaderPage()
+        await ajaxLoaderPage.goToAjaxLoaderPage()
+    });
+    test('Click me', async ({ page }) => {
+        const pageObjectsManager = new PageObjectsManager(page)
+        const ajaxLoaderPage = pageObjectsManager.getAjaxLoaderPage()
+        await ajaxLoaderPage.clickOnButtonClickMe()
+    });
+});
