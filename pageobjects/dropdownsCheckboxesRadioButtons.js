@@ -2,6 +2,7 @@ const { expect } = require('@playwright/test');
 class DropdownsCheckboxesRadioButtonsPage {
     constructor(page) {
         this.page = page;
+        this.dropdownsCheckboxesRadioButtonsLink = page.locator('a#dropdown-checkboxes-radiobuttons')
         this.javaDropdownList = page.locator('.container .thumbnail #dropdowm-menu-1')
         this.eclipseDropdownList = page.locator('.container .thumbnail #dropdowm-menu-2')
         this.htmlDropdownList = page.locator('.container .thumbnail #dropdowm-menu-3')
@@ -12,7 +13,9 @@ class DropdownsCheckboxesRadioButtonsPage {
         this.vegetableButtons = page.locator('.container .thumbnail #radio-buttons-selected-disabled')
     }
     async goToDropdownsCheckboxesRadioButtonsPage() {
-        await this.page.goto('/Dropdown-Checkboxes-RadioButtons/index.html')
+        await this.page.goto('/')
+        await this.dropdownsCheckboxesRadioButtonsLink.evaluate((el) => el.removeAttribute('target'))
+        await this.dropdownsCheckboxesRadioButtonsLink.click()
     }
     async selectOptionFirstDropdownList(itemName) {
         const dropdownItem = await this.javaDropdownList.locator('text=' + itemName)

@@ -2,12 +2,15 @@ const { expect } = require('@playwright/test');
 class AutocompleteTextFieldPage {
     constructor(page) {
         this.page = page;
+        this.AutocompleteTextFieldLink = page.locator('a#autocomplete-textfield')
         this.textField = page.locator('#myInput[type="text"]')
         this.autocompleteListElements = page.locator('#myInputautocomplete-list strong')
         this.submitButton = page.locator('#submit-button')
     }
     async goToAutocompleteTextField() {
-        await this.page.goto('/Autocomplete-TextField/autocomplete-textfield.html')
+        await this.page.goto('/')
+        await this.AutocompleteTextFieldLink.evaluate((el) => el.removeAttribute('target'))
+        await this.AutocompleteTextFieldLink.click()
     }
     async typeText(inputText){
     await this.textField.type(inputText)

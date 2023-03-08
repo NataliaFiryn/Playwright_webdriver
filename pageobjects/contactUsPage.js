@@ -2,6 +2,7 @@ const { expect } = require('@playwright/test');
 class ContactUsPage {
     constructor(page) {
         this.page = page;
+        this.contactUsLink = page.locator('a#contact-us')
         this.firstNameField = page.locator('[name="first_name"]')
         this.lastNameField = page.locator('[name="last_name"]')
         this.emailField = page.locator('[name="email"]')
@@ -13,7 +14,9 @@ class ContactUsPage {
 
     }
     async goToContactUs() {
-        await this.page.goto('/Contact-Us/contactus.html')
+        await this.page.goto('/')
+        await this.contactUsLink.evaluate((el) => el.removeAttribute('target'))
+        await this.contactUsLink.click()
     }
     async fillUpContactUsForm(firstName,lastName, email, comment) {
         if (firstName !== null) await this.firstNameField.type(firstName)

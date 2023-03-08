@@ -2,6 +2,7 @@ const { expect } = require('@playwright/test');
 class DatapickerPage {
     constructor(page) {
         this.page = page;
+        this.datapickerLink = page.locator('a#datepicker')
         this.dateField = page.locator('input')
         this.dateSwitch = page.locator('.datepicker-switch:visible')
         this.nextButton = page.locator('[class="next"]:visible')
@@ -9,7 +10,9 @@ class DatapickerPage {
         this.allDays = page.locator('[class=day]')
     }
     async goToDatapicker() {
-        await this.page.goto('/Datepicker/index.html')
+        await this.page.goto('/')
+        await this.datapickerLink.evaluate((el) => el.removeAttribute('target'))
+        await this.datapickerLink.click()
     }
     async chceckIfDefaultDateIsTodayDate() {
         let currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replaceAll('/', '-')
