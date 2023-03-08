@@ -18,7 +18,7 @@ class ContactUsPage {
         await this.contactUsLink.evaluate((el) => el.removeAttribute('target'))
         await this.contactUsLink.click()
     }
-    async fillUpContactUsForm(firstName,lastName, email, comment) {
+    async fillUpContactUsForm(firstName, lastName, email, comment) {
         if (firstName !== null) await this.firstNameField.type(firstName)
         if (lastName !== null) await this.lastNameField.type(lastName)
         if (email !== null) await this.emailField.type(email)
@@ -33,19 +33,19 @@ class ContactUsPage {
     }
     async submitContactUsForm() {
         await this.submitButton.click()
-        
+
     }
-    async messageFormSubmitedCorrect(){
+    async messageFormSubmitedCorrect() {
         await expect(this.contactReplay).toHaveText('Thank You for your Message!')
     }
-    async errorMessageAllFieldsRequired(){
+    async errorMessageAllFieldsRequired() {
         await expect(this.errorReplay).toContainText('Error: all fields are required')
     }
-    async errorMessageInvalidEmail(){
+    async errorMessageInvalidEmail() {
         await expect(this.errorReplay).toContainText('Error: Invalid email address')
     }
-    async emailValidation(invalidEmail){
-        for (let i = 0; i <invalidEmail.length; ++i){
+    async emailValidation(invalidEmail) {
+        for (let i = 0; i < invalidEmail.length; ++i) {
             await this.firstNameField.type('Jane')
             await this.lastNameField.type('Doe')
             await this.emailField.type(invalidEmail[i])

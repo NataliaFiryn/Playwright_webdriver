@@ -5,7 +5,7 @@ class AjaxLoaderPage {
         this.ajaxLoaderLink = page.locator('a#ajax-loader')
         this.clickMeButton = page.locator('#button1[type="button"]')
         this.messegeTitle = page.locator('[class="modal-title"]')
-    
+
     }
     async goToAjaxLoaderPage() {
         await this.page.goto('/')

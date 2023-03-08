@@ -9,8 +9,8 @@ class AutocompleteTextFieldPage {
     }
     async goToAutocompleteTextField() {
         await this.page.goto('/')
-        await this.AutocompleteTextFieldLink.evaluate((el) => el.removeAttribute('target'))
-        await this.AutocompleteTextFieldLink.click()
+        await this.autocompleteTextFieldLink.evaluate((el) => el.removeAttribute('target'))
+        await this.autocompleteTextFieldLink.click()
     }
     async typeText(inputText) {
         await this.textField.type(inputText)
